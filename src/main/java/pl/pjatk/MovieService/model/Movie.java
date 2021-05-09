@@ -1,13 +1,13 @@
 package pl.pjatk.MovieService.model;
 
 public class Movie {
-    private int id;
+    private Long id;
     private String title;
     private Category category;
     private String director;
     private float rating;
 
-    public Movie(int id, String title, Category category, String director, float rating) {
+    public Movie(Long id, String title, Category category, String director, float rating) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -15,11 +15,11 @@ public class Movie {
         this.rating = rating;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

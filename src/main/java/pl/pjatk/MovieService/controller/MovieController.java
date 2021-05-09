@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieController {
 
-    private MovieService movieService;
+    private final MovieService movieService;
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
@@ -23,7 +23,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> findById(@PathVariable long id) {
+    public ResponseEntity<Movie> findById(@PathVariable Long id) {
         if (movieService.findById().getId() == id) {
             return ResponseEntity.ok().build();
         } else {
@@ -38,7 +38,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Movie> update(@PathVariable int id, @RequestBody Movie movie) {
+    public ResponseEntity<Movie> update(@PathVariable Long id, @RequestBody Movie movie) {
         movieService.editMovie(id, movie);
         return ResponseEntity.ok(movie);
     }
@@ -46,6 +46,6 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         movieService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
