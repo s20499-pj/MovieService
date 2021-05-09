@@ -1,10 +1,7 @@
 package pl.pjatk.MovieService.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.pjatk.MovieService.model.Movie;
 import pl.pjatk.MovieService.service.MovieService;
 
@@ -21,7 +18,7 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>> findAllMovies(){
+    public ResponseEntity<List<Movie>> findAllMovies() {
         return ResponseEntity.ok(movieService.findAll());
     }
 
@@ -34,4 +31,21 @@ public class MovieController {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<Movie> add(@RequestBody Movie movie) {
+        movieService.addMovie(movie);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> update(@PathVariable int id, @RequestBody Movie movie) {
+        movieService.editMovie(id, movie);
+        return ResponseEntity.ok(movie);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        movieService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

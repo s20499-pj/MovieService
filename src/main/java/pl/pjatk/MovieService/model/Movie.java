@@ -3,11 +3,11 @@ package pl.pjatk.MovieService.model;
 public class Movie {
     private int id;
     private String title;
-    private String category;
+    private Category category;
     private String director;
     private float rating;
 
-    public Movie(int id, String title, String category, String director, float rating) {
+    public Movie(int id, String title, Category category, String director, float rating) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -31,11 +31,11 @@ public class Movie {
         this.title = title;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
