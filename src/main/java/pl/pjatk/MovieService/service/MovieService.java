@@ -2,31 +2,49 @@ package pl.pjatk.MovieService.service;
 
 import org.springframework.stereotype.Service;
 import pl.pjatk.MovieService.model.Movie;
+import pl.pjatk.MovieService.repository.MovieRepository;
 
 import java.util.List;
-
-import static pl.pjatk.MovieService.model.Category.Horror;
-
+import java.util.Optional;
 
 @Service
 public class MovieService {
+    private final MovieRepository movieRepository;
+
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     public List<Movie> findAll() {
-        return List.of(new Movie(1L, "Straszny Film", Horror, "somebody", 5));
+        return movieRepository.findAll();
     }
 
-    public Movie findById() {
-        return new Movie(1L, "Straszny Film", Horror, "somebody", 5);
+    public Optional<Movie> findById(Long id) {
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
+            return movie;
+        } else {
+            throw new RuntimeException();
+        }
     }
 
-    public Movie addMovie(Movie movie){
-        return movie;
+    public Movie addMovie(Movie movie) {
+        return movieRepository.save(movie);
     }
 
     public Movie editMovie(Long id, Movie movie) {
-        return new Movie(id, movie.getTitle(), movie.getCategory(), movie.getDirector(), movie.getRating());
+        if (movieRepository.existsById(id)) {
+            return movieRepository.save(movie);
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     public void delete(Long id) {
+        if (movieRepository.findById(id).isPresent()) {
+            movieRepository.deleteById(id);
+        } else {
+            throw new RuntimeException();
+        }
     }
 }
