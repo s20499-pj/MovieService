@@ -12,16 +12,18 @@ public class Movie {
     private Category category;
     private String director;
     private float rating;
+    private boolean isAvailable;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, Category category, String director, float rating) {
+    public Movie(Long id, String title, Category category, String director, float rating, boolean isAvailable) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.director = director;
         this.rating = rating;
+        this.isAvailable = isAvailable;
     }
 
     public Long getId() {
@@ -64,14 +66,23 @@ public class Movie {
         this.rating = rating;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", category='" + category + '\'' +
+                ", category=" + category +
                 ", director='" + director + '\'' +
                 ", rating=" + rating +
+                ", isAvailable=" + isAvailable +
                 '}';
     }
 }

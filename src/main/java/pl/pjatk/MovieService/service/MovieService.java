@@ -47,4 +47,10 @@ public class MovieService {
             throw new RuntimeException();
         }
     }
+
+    public boolean isAvailable(Long id){
+        Movie movie = movieRepository.findById(id).get();
+        movie.setAvailable(true);
+        return movie.isAvailable();
+    }
 }
