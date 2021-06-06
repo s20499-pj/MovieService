@@ -53,4 +53,10 @@ public class MovieService {
         movie.setAvailable(true);
         return movie.isAvailable();
     }
+
+    public boolean isNotAvailable(Long id) {
+        Movie movie = movieRepository.findById(id).get();
+        movie.setAvailable(false);
+        return movie.isAvailable();
+    }
 }

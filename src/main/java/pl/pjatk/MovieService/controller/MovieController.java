@@ -50,8 +50,14 @@ public class MovieController {
     }
 
     @PutMapping("/{id}/true")
-    public ResponseEntity<Movie> changeAvailable(@PathVariable Long id) {
+    public ResponseEntity<Movie> availableIsTrue(@PathVariable Long id) {
         movieService.isAvailable(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/false")
+    public ResponseEntity<Movie> availableIsFalse(@PathVariable Long id) {
+        movieService.isNotAvailable(id);
         return ResponseEntity.ok().build();
     }
 }
