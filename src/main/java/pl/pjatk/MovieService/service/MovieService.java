@@ -48,15 +48,25 @@ public class MovieService {
         }
     }
 
-    public boolean isAvailable(Long id){
-        Movie movie = movieRepository.findById(id).get();
-        movie.setAvailable(true);
-        return movie.isAvailable();
+    public boolean isAvailable(Long id) {
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
+            movie.get().setAvailable(true);
+            movieRepository.save(movie.get());
+            return movie.get().isAvailable();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     public boolean isNotAvailable(Long id) {
-        Movie movie = movieRepository.findById(id).get();
-        movie.setAvailable(false);
-        return movie.isAvailable();
+            Optional<Movie> movie = movieRepository.findById(id);
+            if (movie.isPresent()) {
+                movie.get().setAvailable(false);
+                movieRepository.save(movie.get());
+                return !movie.get().isAvailable();
+            } else {
+                throw new RuntimeException();
+            }
     }
 }

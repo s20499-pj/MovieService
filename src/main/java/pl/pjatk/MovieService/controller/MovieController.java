@@ -6,6 +6,7 @@ import pl.pjatk.MovieService.model.Movie;
 import pl.pjatk.MovieService.service.MovieService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movies")
@@ -23,9 +24,10 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> findById(@PathVariable Long id) {
-        if (movieService.findById(id).isPresent()) {
-            return ResponseEntity.ok().build();
+    public ResponseEntity<Optional<Movie>> findById(@PathVariable Long id) {
+        Optional<Movie> movie = movieService.findById(id);
+        if (movie.isPresent()) {
+            return ResponseEntity.ok(movie);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -51,13 +53,15 @@ public class MovieController {
 
     @PutMapping("/{id}/true")
     public ResponseEntity<Movie> availableIsTrue(@PathVariable Long id) {
-        movieService.isAvailable(id);
-        return ResponseEntity.ok().build();
+        if(movieService.isAvailable(id)) {
+            return ResponseEntity.ok().build();
+        }else return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}/false")
     public ResponseEntity<Movie> availableIsFalse(@PathVariable Long id) {
-        movieService.isNotAvailable(id);
-        return ResponseEntity.ok().build();
+        if(movieService.isNotAvailable(id)) {
+            return ResponseEntity.ok().build();
+        }else return ResponseEntity.badRequest().build();
     }
 }
